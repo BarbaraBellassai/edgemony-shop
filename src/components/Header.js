@@ -5,8 +5,8 @@ import Proptypse from "prop-types"
 function Header(props) {
     const {logo} = props
     return (
-       <header className = "header">
-        <img src = {logo} alt = "header logo"/>
+       <header className = "Header">
+        <img className = "Header-img" src = {logo} alt = "header logo"/>
        </header>
     )  
 }

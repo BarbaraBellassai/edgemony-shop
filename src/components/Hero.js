@@ -5,9 +5,9 @@ import Proptypse from "prop-types"
 function Hero(props) {
     const {title, cover, description} = props
     return (
-       <div className = "hero">
+       <div className = "Hero">
            <h1>{title}</h1>        
-           <img src = {cover} alt = "hero"/>
+           <img src = {cover} alt = "Hero-cover"/>
            <h2>{description}</h2>
         </div>
     )  

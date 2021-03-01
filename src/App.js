@@ -1,7 +1,6 @@
 import "./App.css";
 import Header from '../src/components/Header'
 import Hero from '../src/components/Hero'
-import Card from '../src/components/Card'
 import Items from '../src/components/Items'
 
 const fakeProducts = require("./mocks/data/products.json");

@@ -1,0 +1,27 @@
+.Hero{
+    height: 85vh;
+    position: relative;
+}
+
+.Hero h1{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    width: 100%;
+}
+
+.Hero img{
+    height: 50vh;
+    width: 90%;
+    margin: 0 20px;
+}
+
+.Hero h2{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    margin: 20px 5px;
+    text-align: center;
+    width: 90%;
+    position: absolute;
+    bottom: 60px;
+    
+}

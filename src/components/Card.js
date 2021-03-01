@@ -1,11 +1,11 @@
 import "./Card.css"
-import Proptypse from "prop-types"
+//import Proptypse from "prop-types"
 
 
 function Card(props) {
     const {image, title, price} = props
     return(
-        <div className = "card-wrapper">
+        <div className = "Card">
            <img src ={image} alt = "card im"/>
            <h3> {title} </h3>
            <span>{price}</span>

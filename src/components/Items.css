@@ -1,0 +1,6 @@
+.Card-Wrapper{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    flex-direction: row;
+}
