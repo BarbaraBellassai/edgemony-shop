@@ -2,16 +2,15 @@ import Card from './Card'
 import "./Items.css"
 
 function Items(props) {
-    const {products} = props
+    const {items} = props
+    
     return (
         <div>
             <div className = "Card-Wrapper">
-                {products.map((product)=>{
+                {items.map((item)=>{
                     return(
                         <div>
-                            <Card image = {product.image}
-                                title = {product.title}
-                                price = {product.price}  
+                            <Card product={item}  
                             />
                         </div>
                     )

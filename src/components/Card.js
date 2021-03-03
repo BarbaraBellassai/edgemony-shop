@@ -2,42 +2,38 @@ import "./Card.css"
 import Modal from "./Modal"
 import React from 'react'
 import {useState} from 'react'
-//import Proptypse from "prop-types"
+import PropTypse from "prop-types"
 
 
-function Card(props) {
-    const {image, title, price, description} = props
-
+function Card({ product }) {
+{console.log(product)} 
     const [modalIsOpen, setmodalIsOpen] = useState (false)
     
     function clickHandler() {
         {console.log("Il bottone funziona")}
         setmodalIsOpen (true);
     }
+    function closeModal() {
+        setmodalIsOpen (false);
+    }
     return(
-        !modalIsOpen ? (
-        <div className = "Card">
-           <img src ={image} alt = "card im"/>
-           <h3> {title} </h3>
-           <span>€{price}</span>
-           <button type = "button" onClick = {clickHandler} >View Details</button>        
-        </div>
-        ) : <div>
-                <div className = "Card">
-                    <img src ={image} alt = "card im"/>
-                    <h3> {title} </h3>
-                    <span>€{price}</span>
-                    <button type = "button" onClick = {clickHandler} >View Details</button>
-                           
+         <div className = "Card">
+                <div >
+                    <img src ={product.image} alt = {product.title}/>
+                    <h3> {product.title} </h3>
+                    <span>€{product.price}</span>                           
                 </div>
-                <Modal data = {props}/> 
+                    <button type = "button" onClick = {clickHandler} >View Details</button>
+                <Modal 
+                productElements = {product}
+                isOpen = {modalIsOpen}
+                isClosed = {closeModal}/> 
            </div>
     )
 }
 
-// Card.proptypes = {
-//     image : Proptypse.string.isRequired, 
-//     title : Proptypse.string.isRequired,
-//     price : Proptypse.string.isRequired
-// }
+Card.propTypes = {
+    product : PropTypse.object.isRequired    
+}
+
 export default Card
