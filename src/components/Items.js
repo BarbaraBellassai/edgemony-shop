@@ -10,7 +10,7 @@ function Items(props) {
                 {items.map((item)=>{
                     return(
                         <div>
-                            <Card product={item}  
+                            <Card key = {item.id} product={item}  
                             />
                         </div>
                     )

@@ -3,6 +3,9 @@ import Header from '../src/components/Header'
 import Hero from '../src/components/Hero'
 import Items from '../src/components/Items'
 import Footer from '../src/components/Footer'
+import { useEffect } from "react"
+import { useState } from "react";
+import Loader from "../src/components/Loader"
 
 const fakeProducts = require("./mocks/data/products.json");
 const currentYear = new Date().getFullYear()
@@ -19,14 +22,35 @@ const data = {
 };
 
 function App() {
+  const [articles, setArticles] = useState(undefined);
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    fetch ("https://fakestoreapi.com/products")
+    .then((response) => response.json())
+    .then((result) => {
+      setArticles(result);
+      setLoading(false)
+    })
+    
+  }, [])
   return (
     <div className="App">
+      {console.log (articles)}
       <Header logo = {data.logo}/>
       <main>
         <Hero cover = {data.cover} title = {data.title} description = {data.description}/>
       </main>
       <div>
-        <Items items = {data.products}/>
+        {articles && !loading ? (
+         
+           <Items items = {articles}/>
+
+           
+        
+         ) : (<Loader />)
+        }
       </div>
       <div>
         <Footer company = {data.company} year = {currentYear}/>
