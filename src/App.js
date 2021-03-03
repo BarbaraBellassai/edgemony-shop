@@ -5,6 +5,7 @@ import Items from '../src/components/Items'
 import Footer from '../src/components/Footer'
 import { useEffect } from "react"
 import { useState } from "react";
+import Loader from "../src/components/Loader"
 
 const fakeProducts = require("./mocks/data/products.json");
 const currentYear = new Date().getFullYear()
@@ -48,7 +49,7 @@ function App() {
 
            
         
-         ) : (<h2>Loading...</h2>)
+         ) : (<Loader />)
         }
       </div>
       <div>
