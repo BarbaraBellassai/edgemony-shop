@@ -22,11 +22,17 @@ const data = {
 
 function App() {
   const [articles, setArticles] = useState(undefined);
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     fetch ("https://fakestoreapi.com/products")
     .then((response) => response.json())
-    .then((result) => setArticles(result));
+    .then((result) => {
+      setArticles(result);
+      setLoading(false)
+    })
+    
   }, [])
   return (
     <div className="App">
@@ -36,12 +42,14 @@ function App() {
         <Hero cover = {data.cover} title = {data.title} description = {data.description}/>
       </main>
       <div>
-        {articles &&
+        {articles && !loading ? (
          
            <Items items = {articles}/>
+
            
+        
+         ) : (<h2>Loading...</h2>)
         }
-     
       </div>
       <div>
         <Footer company = {data.company} year = {currentYear}/>
