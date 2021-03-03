@@ -26,7 +26,7 @@ function App() {
         <Hero cover = {data.cover} title = {data.title} description = {data.description}/>
       </main>
       <div>
-        <Items products = {data.products}/>
+        <Items items = {data.products}/>
       </div>
       <div>
         <Footer company = {data.company} year = {currentYear}/>
