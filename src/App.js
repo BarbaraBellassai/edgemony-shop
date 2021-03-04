@@ -70,7 +70,7 @@ function App() {
          ) : loading && (<Loader />)
         }
         {
-          apiError && <ErrorComponent retryApi ={retryFnc}/>
+          apiError && <ErrorComponent retryApi ={retryFnc} errMsg = {apiError}/>
         }
       </div>
       <div>

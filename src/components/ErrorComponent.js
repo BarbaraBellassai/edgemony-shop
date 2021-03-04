@@ -1,15 +1,18 @@
 import './ErrorComponent.css'
 import React from 'react'
+import {useState} from 'react'
 
 
 
-function ErrorComponent({apiError, retryApi}) {
-   
+function ErrorComponent({errMsg, retryApi}) {
+    const [remBtn, setRemBtn ] = useState(false)
     return(
+        !remBtn ?(
         <div className = "errorBanner">
-          <span>{ apiError }</span>
+          <span>{ errMsg }</span>
           <button className = "retryBtn" type="button" onClick={() => retryApi()}>Retry</button>
-        </div>
+          <button className = "removeBtn" type="button" onClick={() => setRemBtn(true)}>X</button>
+        </div>) : <></>
     )
 }
 
