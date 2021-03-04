@@ -6,6 +6,7 @@ import Footer from '../src/components/Footer'
 import { useEffect } from "react"
 import { useState } from "react";
 import Loader from "../src/components/Loader"
+import ErrorComponent from '../src/components/ErrorComponent'
 
 const fakeProducts = require("./mocks/data/products.json");
 const currentYear = new Date().getFullYear()
@@ -24,32 +25,52 @@ const data = {
 function App() {
   const [articles, setArticles] = useState(undefined);
   const [loading, setLoading] = useState(false)
+  const [apiError, setApiError] = useState('')
+  const [ retry, setRetry ] = useState(false)
+
+  function retryFnc() {
+    setRetry (!retry)
+  }
 
   useEffect(() => {
     setLoading(true)
     fetch ("https://fakestoreapi.com/products")
     .then((response) => response.json())
     .then((result) => {
-      setArticles(result);
+      const hasHerror = Math.random() > 0.5
+      if (!hasHerror){
+      setArticles(result)
+      setLoading(false)
+      setApiError('')
+      } else {
+        throw new Error ('Product server API call response error')
+      }
+    })
+    .catch ((err) =>{
+      setApiError(err.message)
       setLoading(false)
     })
     
-  }, [])
+  }, [retry])
+
   return (
     <div className="App">
-      {console.log (articles)}
+      
       <Header logo = {data.logo}/>
       <main>
         <Hero cover = {data.cover} title = {data.title} description = {data.description}/>
       </main>
       <div>
-        {articles && !loading ? (
+        {articles && !apiError ? (
          
            <Items items = {articles}/>
 
            
         
-         ) : (<Loader />)
+         ) : loading && (<Loader />)
+        }
+        {
+          apiError && <ErrorComponent retryApi ={retryFnc}/>
         }
       </div>
       <div>
