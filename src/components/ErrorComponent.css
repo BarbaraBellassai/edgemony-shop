@@ -1,0 +1,10 @@
+.errorBanner{
+    background-color: red;
+    position: fixed;
+    bottom: 30px;
+}
+.retryBtn{
+    border: 4px;
+    font-size: 15px;
+    border-radius: 8px;
+}
