@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import { useState } from "react";
 import Loader from "../src/components/Loader"
 import ErrorComponent from '../src/components/ErrorComponent'
+import SearchBar from '../src/components/SearchBar'
 
 const fakeProducts = require("./mocks/data/products.json");
 const currentYear = new Date().getFullYear()
@@ -26,11 +27,18 @@ function App() {
   const [articles, setArticles] = useState(undefined);
   const [loading, setLoading] = useState(false)
   const [apiError, setApiError] = useState('')
-  const [ retry, setRetry ] = useState(false)
+  const [retry, setRetry ] = useState(false)
+  const [userInput, setInput] = useState("")
 
   function retryFnc() {
     setRetry (!retry)
   }
+
+  function search(e) {
+    console.log(e.target.value);
+    const target = e.target.value;
+    setInput(target);    
+}
 
   useEffect(() => {
     setLoading(true)
@@ -60,11 +68,14 @@ function App() {
       <main>
         <Hero cover = {data.cover} title = {data.title} description = {data.description}/>
       </main>
+      
       <div>
         {articles && !apiError ? (
-         
-           <Items items = {articles}/>
-
+          <div>
+            <SearchBar searchInput= {search}/> 
+          
+            <Items items = {articles} userChoise={userInput}/>
+          </div>  
            
         
          ) : loading && (<Loader />)

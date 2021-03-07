@@ -1,13 +1,17 @@
 import Card from './Card'
 import "./Items.css"
 
-function Items(props) {
-    const {items} = props
+function Items({items,userChoise}) {    
     
     return (
         <div>
             <div className = "Card-Wrapper">
-                {items.map((item)=>{
+                {items
+                .filter((item) =>{
+                    return item.title.includes(userChoise)
+                }
+                )
+                .map((item)=>{
                     return(
                         <div>
                             <Card key = {item.id} product={item}  
