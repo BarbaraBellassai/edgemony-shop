@@ -72,7 +72,7 @@ function App() {
       <div>
         {articles && !apiError ? (
           <div>
-            <SearchBar searchInput= {search}/> 
+            <SearchBar inputChange={userInput} searchInput= {search}/> 
           
             <Items items = {articles} userChoise={userInput}/>
           </div>  
