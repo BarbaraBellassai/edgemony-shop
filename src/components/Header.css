@@ -10,3 +10,11 @@
     height: 100px;
     width: 300px;
 }
+
+.Added_Item, .Item_Price{
+    position: relative;
+    border: 10px;
+    color: whitesmoke;
+    margin: 20px 10px;
+    
+}

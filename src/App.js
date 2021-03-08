@@ -29,6 +29,7 @@ function App() {
   const [apiError, setApiError] = useState('')
   const [retry, setRetry ] = useState(false)
   const [userInput, setInput] = useState("")
+  const [userCartItems, setUserCartItems] = useState ([])
 
   function retryFnc() {
     setRetry (!retry)
@@ -38,7 +39,14 @@ function App() {
     console.log(e.target.value);
     const target = e.target.value;
     setInput(target);    
-}
+  }
+
+  function addingToCart(obj) {
+    return(
+    setUserCartItems((userCartItems) => [
+      ...userCartItems,{...obj}]))
+    
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -64,7 +72,7 @@ function App() {
   return (
     <div className="App">
       
-      <Header logo = {data.logo}/>
+      <Header logo = {data.logo} addedItem = {userCartItems}/>
       <main>
         <Hero cover = {data.cover} title = {data.title} description = {data.description}/>
       </main>
@@ -74,7 +82,7 @@ function App() {
           <div>
             <SearchBar inputChange={userInput} searchInput= {search}/> 
           
-            <Items items = {articles} userChoise={userInput}/>
+            <Items items = {articles} userChoise={userInput} addingFnc = {addingToCart}/>
           </div>  
            
         

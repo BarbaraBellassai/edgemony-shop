@@ -5,12 +5,12 @@ import {useState} from 'react'
 import PropTypse from "prop-types"
 
 
-function Card({ product }) {
-{console.log(product)} 
+function Card({ product,addProduct }) {
+
     const [modalIsOpen, setmodalIsOpen] = useState (false)
     
     function clickHandler() {
-        {console.log("Il bottone funziona")}
+       
         setmodalIsOpen (true);
     }
     function closeModal() {
@@ -27,7 +27,8 @@ function Card({ product }) {
                 <Modal 
                 productElements = {product}
                 isOpen = {modalIsOpen}
-                isClosed = {closeModal}/> 
+                isClosed = {closeModal}
+                itemAddedToCart = {addProduct}/> 
            </div>
     )
 }
