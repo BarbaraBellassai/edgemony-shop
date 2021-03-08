@@ -11,7 +11,7 @@ function ErrorComponent({errMsg, retryApi}) {
         <div className = "errorBanner">
           <span>{ errMsg }</span>
           <button className = "retryBtn" type="button" onClick={() => retryApi()}>Retry</button>
-          <button className = "removeBtn" type="button" onClick={() => setRemBtn(true)}>X</button>
+          <button className = "removeBtn" type="button" onClick={() => setRemBtn(true)}>Close</button>
         </div>) : <></>
     )
 }

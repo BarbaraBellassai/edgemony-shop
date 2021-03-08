@@ -21,9 +21,9 @@ function Card({ product }) {
                 <div >
                     <img src ={product.image} alt = {product.title}/>
                     <h3> {product.title} </h3>
-                    <span>€{product.price}</span>                           
-                </div>
+                    <div>€{product.price}</div>                           
                     <button type = "button" onClick = {clickHandler} >View Details</button>
+                </div>
                 <Modal 
                 productElements = {product}
                 isOpen = {modalIsOpen}

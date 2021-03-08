@@ -14,8 +14,8 @@ export default function Modal({ productElements, isOpen, isClosed }) {
                     <img src = {productElements.image} alt = {productElements.title}/>
                     <h3>{productElements.title}</h3> 
                     <h2>{productElements.description}</h2>
-                    <span>{productElements.price}</span>
-                    <button type = "button"  onClick = {isClosed}>X</button>
+                    <span>€{productElements.price}</span>
+                    <button type = "button"  onClick = {isClosed}>Close X</button>
                 </div>
             </div>
         </div>

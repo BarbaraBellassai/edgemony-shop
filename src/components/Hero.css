@@ -11,17 +11,20 @@
 
 .Hero img{
     height: 50vh;
-    width: 90%;
-    margin: 0 20px;
+    width: 100%;
+    margin: 0 ;
+    display: flex;
+    align-content: center;
+   
 }
 
 .Hero h2{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 20px;
-    margin: 20px 5px;
+    margin: 20px 0;
     text-align: center;
-    width: 90%;
+    width: 100%;
     position: absolute;
-    bottom: 60px;
-    
+    bottom: 60px;    
 }
+

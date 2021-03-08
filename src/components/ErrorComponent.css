@@ -2,9 +2,22 @@
     background-color: red;
     position: fixed;
     bottom: 30px;
+    padding: 20px;
+    display: flex;
+    height: 30px;
+    width: 100%;
+    margin: 20px, 20px, 
+   
+    
 }
-.retryBtn{
+.retryBtn, .removeBtn {
+    position: relative;
+    left: 20px;
     border: 4px;
     font-size: 15px;
     border-radius: 8px;
+    margin-right: 20px;
+    padding: 5px 20px;
+   
+    
 }
