@@ -1,3 +1,10 @@
 .search_input{
-    background-color: darkred;
+    background-color: grey;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.search_input label{
+    margin: 10px;
 }

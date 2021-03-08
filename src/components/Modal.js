@@ -3,7 +3,7 @@ import "./Modal.css"
 import PropTypse from "prop-types"
 
 
-export default function Modal({ productElements, isOpen, isClosed }) {
+export default function Modal({ productElements, isOpen, isClosed,itemAddedToCart }) {
     
 
     return  (
@@ -16,6 +16,7 @@ export default function Modal({ productElements, isOpen, isClosed }) {
                     <h2>{productElements.description}</h2>
                     <span>€{productElements.price}</span>
                     <button type = "button"  onClick = {isClosed}>Close X</button>
+                    <button type = "button" onClick={() =>itemAddedToCart(productElements)}>Add to Cart</button>
                 </div>
             </div>
         </div>
@@ -28,3 +29,4 @@ Modal.propTypse ={
     isOpen: PropTypse.bool.isRequired,
     closeModal: PropTypse.func.isRequired
 }
+
