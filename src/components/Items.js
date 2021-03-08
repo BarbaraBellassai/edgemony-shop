@@ -8,7 +8,7 @@ function Items({items,userChoise}) {
             <div className = "Card-Wrapper">
                 {items
                 .filter((item) =>{
-                    return item.title.includes(userChoise)
+                    return item.title.includes(userChoise) || item.description.includes(userChoise)
                 }
                 )
                 .map((item)=>{
