@@ -8,6 +8,7 @@ import { useState } from "react";
 import Loader from "../src/components/Loader"
 import ErrorComponent from '../src/components/ErrorComponent'
 import SearchBar from '../src/components/SearchBar'
+import CartModal from "../src/components/CartModal";
 
 const fakeProducts = require("./mocks/data/products.json");
 const currentYear = new Date().getFullYear()
@@ -30,6 +31,7 @@ function App() {
   const [retry, setRetry ] = useState(false)
   const [userInput, setInput] = useState("")
   const [userCartItems, setUserCartItems] = useState ([])
+  const [cartModalOpen, setCartModal] =  useState(false) 
 
   function retryFnc() {
     setRetry (!retry)
@@ -48,6 +50,12 @@ function App() {
     
   }
 
+  function openCartModal() {
+    setCartModal  (true)
+}
+  function closeCartModal() {
+  setCartModal  (false)
+}
   useEffect(() => {
     setLoading(true)
     fetch ("https://fakestoreapi.com/products")
@@ -72,8 +80,9 @@ function App() {
   return (
     <div className="App">
       
-      <Header logo = {data.logo} addedItem = {userCartItems}/>
+      <Header logo = {data.logo} addedItem = {userCartItems} openCartModal={openCartModal}/>
       <main>
+        <CartModal cartModalOpen = {cartModalOpen} closeCartModal={closeCartModal} userCartItems={userCartItems}/>
         <Hero cover = {data.cover} title = {data.title} description = {data.description}/>
       </main>
       

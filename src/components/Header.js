@@ -1,34 +1,19 @@
 import "./Header.css"
 import Proptypse from "prop-types"
 import React from 'react'
+import HeaderCart from '../components/HeaderCart'
 
 
 
-function Header({logo,addedItem}) {
+function Header({logo,addedItem,openCartModal}) {
     console.log(addedItem)
+
     
-
-    function addingPrice() {
-        let TotalPrice = 0
-        addedItem
-            .map((productAdded) => (TotalPrice = TotalPrice + productAdded.price))
-        
-
-        return(
-            TotalPrice
-        )
-    }    
     return (
        <header className = "Header">
         <img className = "Header-img" src = {logo} alt = "header logo"/>
-        <div className = "Added_Item">
-            <span>Your Cart</span>
-            <span>{addedItem.length}</span>
-        </div>
-        <div className = "Item_Price">
-            <span>Total Price</span>
-            <span>{addingPrice()}</span>
-        </div>
+        <HeaderCart cartElement= {addedItem} openCartModal={openCartModal}/>
+        
        </header>
     )  
 }
