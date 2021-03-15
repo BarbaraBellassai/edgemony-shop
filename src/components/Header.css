@@ -1,20 +1,16 @@
-.Header{
-    background-color:grey;
+.Header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 78px;
+    background-color: grey;
+    padding: 10px;
     display: flex;
-    height: 15vh;
-    align-items: center;     
-}
-
-
-.Header-img{
-    height: 100px;
-    width: 300px;
-}
-
-.Added_Item, .Item_Price{
-    position: relative;
-    border: 10px;
-    color: whitesmoke;
-    margin: 20px 10px;
-    
-}
+    align-items: center;
+    z-index: 100;
+  }
+  
+  .Header img {
+      width: 200px;
+  }
