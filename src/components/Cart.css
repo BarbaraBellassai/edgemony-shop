@@ -1,0 +1,13 @@
+.Cart__content {
+    flex-grow: 1;
+    overflow: auto;
+  }
+  
+  .Cart__content__empty {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .Cart footer {
+    text-align: center;
+  }

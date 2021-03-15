@@ -1,32 +1,24 @@
-import React from 'react'
+import PropTypes from "prop-types";
+import './HeaderCart.css'
+import { formatPrice } from "../services/utils"
 
-function HeaderCart({cartElement,openCartModal}) {
-   
-    function addingPrice() {
-        let TotalPrice = 0
-        cartElement
-            .map((productAdded) => (TotalPrice = TotalPrice + productAdded.price))
-        
-
-        return(
-            TotalPrice
-        )
-    }    
-
-
-    return(
-        <div>
-            <div className = "Added_Item">
-                <button type='button' onClick={openCartModal} ><i className="fab fa-opencart"></i></button>
-                <span>{cartElement.length}</span>
-                
-            </div>
-            <div className = "Item_Price">
-                <span>Total Price</span>
-                <span>{addingPrice().toFixed(2)}</span>
-            </div>
-        </div>    
-    )
+function HeaderCart({ cartTotal, cartSize, onCartClick }) {
+  return (
+    <div className="HeaderCart">
+      {!!cartSize && <span className="price">{formatPrice(cartTotal)}</span>}
+      <span className="icon" onClick={onCartClick}>
+      <i className="fab fa-opencart"></i>
+        {!!cartSize && <span className="qty">{cartSize}</span>}
+      </span>
+    </div>
+  );
 }
 
-export default HeaderCart
+HeaderCart.propTypes = {
+  products: PropTypes.array.isRequired,
+  cartTotal: PropTypes.number.isRequired,
+  cartSize: PropTypes.number.isRequired,
+  onCartClick: PropTypes.func.isRequired,
+};
+
+export default HeaderCart;

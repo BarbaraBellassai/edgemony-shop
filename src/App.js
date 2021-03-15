@@ -1,17 +1,17 @@
-import "./App.css";
-import Header from '../src/components/Header'
-import Hero from '../src/components/Hero'
-import Items from '../src/components/Items'
-import Footer from '../src/components/Footer'
-import { useEffect } from "react"
-import { useState } from "react";
-import Loader from "../src/components/Loader"
-import ErrorComponent from '../src/components/ErrorComponent'
-import SearchBar from '../src/components/SearchBar'
-import CartModal from "../src/components/CartModal";
+import { useState, useEffect } from "react";
 
-const fakeProducts = require("./mocks/data/products.json");
-const currentYear = new Date().getFullYear()
+import "./App.css";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import Loader from "./components/Loader";
+import ProductList from "./components/ProductList";
+// import ProductModal from "./components/ModalProduct";
+import ErrorBanner from "./components/ErrorBanner";
+import Modal from "./components/Modal";
+import { fetchProducts, fetchCatogories } from "./services/api";
+import Cart from "./components/Cart"
+import ModalBodySideBar from "./components/ModalBodySideBar"
+import ProductDetails from "./components/ProductDetails"
 
 const data = {
   title: "Edgemony Shop",
@@ -20,92 +20,177 @@ const data = {
     "https://edgemony.com/wp-content/uploads/2020/03/cropped-Logo-edgemony_TeBIANCO-04.png",
   cover:
     "https://images.pexels.com/photos/4123897/pexels-photo-4123897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-  products: fakeProducts,
-  company: 'SZH Inc.'
 };
 
 function App() {
-  const [articles, setArticles] = useState(undefined);
-  const [loading, setLoading] = useState(false)
-  const [apiError, setApiError] = useState('')
-  const [retry, setRetry ] = useState(false)
-  const [userInput, setInput] = useState("")
-  const [userCartItems, setUserCartItems] = useState ([])
-  const [cartModalOpen, setCartModal] =  useState(false) 
+  // Modal logic
+  const [productInModal, setProductInModal] = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(false);
 
-  function retryFnc() {
-    setRetry (!retry)
+  function openProductModal(product) {
+    console.log(product);
+    setProductInModal(product);
+    setModalIsOpen(true);
   }
 
-  function search(e) {
-    console.log(e.target.value);
-    const target = e.target.value;
-    setInput(target);    
+  function closeModal() {
+    setModalIsOpen(false);
+    setTimeout(() => {
+      setProductInModal(null);
+    }, 500);
   }
 
-  function addingToCart(obj) {
-    return(
-    setUserCartItems((userCartItems) => [
-      ...userCartItems,{...obj}]))
-    
-  }
-
-  function openCartModal() {
-    setCartModal  (true)
-}
-  function closeCartModal() {
-  setCartModal  (false)
-}
   useEffect(() => {
-    setLoading(true)
-    fetch ("https://fakestoreapi.com/products")
-    .then((response) => response.json())
-    .then((result) => {
-      const hasHerror = Math.random() > 0.5
-      if (!hasHerror){
-      setArticles(result)
-      setLoading(false)
-      setApiError('')
-      } else {
-        throw new Error ('Product server API call response error')
-      }
-    })
-    .catch ((err) =>{
-      setApiError(err.message)
-      setLoading(false)
-    })
-    
-  }, [retry])
+    if (modalIsOpen || isCartOpen) {
+      document.body.style.height = `100vh`;
+      document.body.style.overflow = `hidden`;
+    } else {
+      document.body.style.height = ``;
+      document.body.style.overflow = ``;
+    }
+  }, [modalIsOpen, isCartOpen]);
+
+  // API data logic
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
+  const [retry, setRetry] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setApiError("");
+    Promise.all([fetchProducts(), fetchCatogories()])
+      .then(([products, categories]) => {
+        setProducts(products);
+        setCategories(categories);
+      })
+      .catch((err) => setApiError(err.message))
+      .finally(() => setIsLoading(false));
+  }, [retry]);
+
+  // Cart Logic
+  const [cart, setCart] = useState([]);
+  
+  const cartProducts = cart.map((cartItem) => {
+    const { price, image, title, id } = products.find(
+      (p) => p.id === cartItem.id
+    );
+    return { price, image, title, id, quantity: cartItem.quantity };
+  });
+  const cartTotal = cartProducts.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+  
+  
+  function isInCart(product) {
+    return product != null && cart.find((p) => p.id === product.id) != null;
+  }
+  function addToCart(productId) {
+    setCart([...cart, { id: productId, quantity: 1 }]);
+  }
+  function removeFromCart(productId) {
+    setCart(cart.filter((product) => product.id !== productId));
+  }
+  function setProductQuantity(productId, quantity) {
+    setCart(
+      cart.map((product) =>
+        product.id === productId ? { ...product, quantity } : product
+      )
+    );
+  }
 
   return (
     <div className="App">
-      
-      <Header logo = {data.logo} addedItem = {userCartItems} openCartModal={openCartModal}/>
+      <Header
+        logo={data.logo}
+        title={data.title}
+        cartTotal={cartTotal}
+        cartSize={cart.length}
+        products={products}
+        onCartClick={() => setCartOpen(true)}
+      />
+      <Hero
+        title={data.title}
+        description={data.description}
+        cover={data.cover}
+      />
       <main>
-        <CartModal cartModalOpen = {cartModalOpen} closeCartModal={closeCartModal} userCartItems={userCartItems}/>
-        <Hero cover = {data.cover} title = {data.title} description = {data.description}/>
+        {isLoading ? (
+          <Loader />
+        ) : apiError ? (
+          <ErrorBanner
+            message={apiError}
+            close={() => setApiError("")}
+            retry={() => setRetry(!retry)}
+          />
+        ) : (
+          <ProductList
+            products={products}
+            categories={categories}
+            openProductModal={openProductModal}
+          />
+        )}
       </main>
-      
-      <div>
-        {articles && !apiError ? (
-          <div>
-            <SearchBar inputChange={userInput} searchInput= {search}/> 
-          
-            <Items items = {articles} userChoise={userInput} addingFnc = {addingToCart}/>
-          </div>  
-           
+      <Modal 
+        isOpen={isCartOpen}
+        close={() => setCartOpen(false)}>       
         
-         ) : loading && (<Loader />)
-        }
-        {
-          apiError && <ErrorComponent retryApi ={retryFnc} errMsg = {apiError}/>
-        }
-      </div>
-      <div>
-        <Footer company = {data.company} year = {currentYear}/>
-      </div>     
+        <ModalBodySideBar 
+          isOpen={isCartOpen}
+          onClose={() => setCartOpen(false)}>
+
+          <Cart
+            products={cartProducts}
+            totalPrice={cartTotal}
+            removeFromCart={removeFromCart}
+            setProductQuantity={setProductQuantity}
+          />
+        </ModalBodySideBar>               
+      </Modal>
+    <Modal
+      isOpen={modalIsOpen}
+      onClose={closeModal}>
+      <ModalBodySideBar
+        isOpen={modalIsOpen}
+        closeModal={closeModal}
+        title={data.title}>
+        
+        <ProductDetails
+        product={productInModal}
+        inCart={isInCart(productInModal)}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+        />
+
+      </ModalBodySideBar>
+        
+    </Modal>             
+      
+     
     </div>
   );
 }
 
 export default App;
+
+
+/* <CartModal
+products={cartProducts}
+isOpen={isCartOpen}
+close={() => setCartOpen(false)}
+totalPrice={cartTotal}
+removeFromCart={removeFromCart}
+setProductQuantity={setProductQuantity}
+/> */
+
+/* <ProductModal
+isOpen={modalIsOpen}
+content={productInModal}
+closeModal={closeModal}
+inCart={isInCart(productInModal)}
+addToCart={addToCart}
+removeFromCart={removeFromCart}
+/> */
