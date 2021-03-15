@@ -5,12 +5,13 @@ import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Loader from "./components/Loader";
 import ProductList from "./components/ProductList";
-import ProductModal from "./components/ModalProduct";
+// import ProductModal from "./components/ModalProduct";
 import ErrorBanner from "./components/ErrorBanner";
 import Modal from "./components/Modal";
 import { fetchProducts, fetchCatogories } from "./services/api";
 import Cart from "./components/Cart"
 import ModalBodySideBar from "./components/ModalBodySideBar"
+import ProductDetails from "./components/ProductDetails"
 
 const data = {
   title: "Edgemony Shop",
@@ -139,7 +140,7 @@ function App() {
         
         <ModalBodySideBar 
           isOpen={isCartOpen}
-          close={() => setCartOpen(false)}>
+          onClose={() => setCartOpen(false)}>
 
           <Cart
             products={cartProducts}
@@ -147,20 +148,28 @@ function App() {
             removeFromCart={removeFromCart}
             setProductQuantity={setProductQuantity}
           />
-        </ModalBodySideBar>
-        
-        
+        </ModalBodySideBar>               
       </Modal>
-                       
-      
-      <ProductModal
+    <Modal
+      isOpen={modalIsOpen}
+      onClose={closeModal}>
+      <ModalBodySideBar
         isOpen={modalIsOpen}
-        content={productInModal}
         closeModal={closeModal}
+        title={data.title}>
+        
+        <ProductDetails
+        product={productInModal}
         inCart={isInCart(productInModal)}
         addToCart={addToCart}
         removeFromCart={removeFromCart}
-      />
+        />
+
+      </ModalBodySideBar>
+        
+    </Modal>             
+      
+     
     </div>
   );
 }
@@ -175,4 +184,13 @@ close={() => setCartOpen(false)}
 totalPrice={cartTotal}
 removeFromCart={removeFromCart}
 setProductQuantity={setProductQuantity}
+/> */
+
+/* <ProductModal
+isOpen={modalIsOpen}
+content={productInModal}
+closeModal={closeModal}
+inCart={isInCart(productInModal)}
+addToCart={addToCart}
+removeFromCart={removeFromCart}
 /> */

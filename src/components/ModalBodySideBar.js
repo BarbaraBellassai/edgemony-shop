@@ -5,16 +5,16 @@ import { PropTypes } from "prop-types";
 
 function ModalBodySideBar({
   isOpen,
-  close,
+  onClose,
   children
 }) {
   
   return (
     <div className={`ModalBodySideBar ${isOpen ? `is-open` : ""}`}>
-      <div className="ModalBodySideBar__overlay" onClick={close}></div>
+      <div className="ModalBodySideBar__overlay" onClick={onClose}></div>
       <div className="ModalBodySideBar__body">
         <header>        
-          <button className="ModalBodySideBar__close" onClick={close}>
+          <button className="ModalBodySideBar__close" onClick={onClose}>
             X
           </button>
           {children}
@@ -29,7 +29,7 @@ ModalBodySideBar.propTypes = {
     
    
     isOpen: PropTypes.bool.isRequired,
-    close: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
     
   };
   

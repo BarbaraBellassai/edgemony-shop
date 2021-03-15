@@ -12,7 +12,7 @@
     pointer-events: auto;
   }
   
-  .ModalBodySideBar__overlay {
+  /* .ModalBodySideBar__overlay {
     background-color: rgba(222, 222, 222, 0.85);
     position: absolute;
     width: 100%;
@@ -20,10 +20,10 @@
     opacity: 0;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
-  }
-  .ModalBodySideBar.is-open .ModalBodySideBar__overlay {
+  } */
+  /* .ModalBodySideBar.is-open .ModalBodySideBar__overlay {
     opacity: 1;
-  }
+  } */
   
   .ModalBodySideBar__body {
     position: fixed;
