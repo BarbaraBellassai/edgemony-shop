@@ -9,16 +9,16 @@ import {
 
 import "./App.css";
 import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Loader from "./components/Loader";
-import ProductList from "./components/ProductList";
-// import ProductModal from "./components/ModalProduct";
-import ErrorBanner from "./components/ErrorBanner";
-import Modal from "./components/Modal";
-import { fetchProducts, fetchCatogories } from "./services/api";
-import Cart from "./components/Cart"
-import ModalBodySideBar from "./components/ModalBodySideBar"
-import ProductDetails from "./components/ProductDetails"
+// import Hero from "./components/Hero";
+// import Loader from "./components/Loader";
+// import ProductList from "./components/ProductList";
+// // import ProductModal from "./components/ModalProduct";
+// import ErrorBanner from "./components/ErrorBanner";
+// import Modal from "./components/Modal";
+// import { fetchProducts, fetchCatogories } from "./services/api";
+// import Cart from "./components/Cart"
+// import ModalBodySideBar from "./components/ModalBodySideBar"
+// import ProductDetails from "./components/ProductDetails"
 import Home from "./pages/Home"
 import Page404 from "./pages/Page404"
 import Product from "./pages/Product"

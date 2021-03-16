@@ -13,11 +13,11 @@ import Loader from "./../components/Loader";
 import ProductList from "./../components/ProductList";
 // import ProductModal from "./components/ModalProduct";
 import ErrorBanner from "./../components/ErrorBanner";
-import Modal from "./../components/Modal";
+//import Modal from "./../components/Modal";
 import { fetchProducts, fetchCatogories } from "./../services/api";
-import Cart from "./../components/Cart"
-import ModalBodySideBar from "./../components/ModalBodySideBar"
-import ProductDetails from "./../components/ProductDetails"
+// import Cart from "./../components/Cart"
+// import ModalBodySideBar from "./../components/ModalBodySideBar"
+// import ProductDetails from "./../components/ProductDetails"
 
 const data = {
   title: "Edgemony Shop",
@@ -30,32 +30,32 @@ const data = {
 
 function Home() {
   // Modal logic
-  const [productInModal, setProductInModal] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [isCartOpen, setCartOpen] = useState(false);
+//   const [productInModal, setProductInModal] = useState(null);
+//   const [modalIsOpen, setModalIsOpen] = useState(false);
+//   const [isCartOpen, setCartOpen] = useState(false);
 
-  function openProductModal(product) {
-    console.log(product);
-    setProductInModal(product);
-    setModalIsOpen(true);
-  }
+//   function openProductModal(product) {
+//     console.log(product);
+//     setProductInModal(product);
+//     setModalIsOpen(true);
+//   }
 
-  function closeModal() {
-    setModalIsOpen(false);
-    setTimeout(() => {
-      setProductInModal(null);
-    }, 500);
-  }
+//   function closeModal() {
+//     setModalIsOpen(false);
+//     setTimeout(() => {
+//       setProductInModal(null);
+//     }, 500);
+//   }
 
-  useEffect(() => {
-    if (modalIsOpen || isCartOpen) {
-      document.body.style.height = `100vh`;
-      document.body.style.overflow = `hidden`;
-    } else {
-      document.body.style.height = ``;
-      document.body.style.overflow = ``;
-    }
-  }, [modalIsOpen, isCartOpen]);
+//   useEffect(() => {
+//     if (modalIsOpen || isCartOpen) {
+//       document.body.style.height = `100vh`;
+//       document.body.style.overflow = `hidden`;
+//     } else {
+//       document.body.style.height = ``;
+//       document.body.style.overflow = ``;
+//     }
+//   }, [modalIsOpen, isCartOpen]);
 
   // API data logic
   const [products, setProducts] = useState([]);
@@ -77,36 +77,36 @@ function Home() {
   }, [retry]);
 
   // Cart Logic
-  const [cart, setCart] = useState([]);
+//   const [cart, setCart] = useState([]);
   
-  const cartProducts = cart.map((cartItem) => {
-    const { price, image, title, id } = products.find(
-      (p) => p.id === cartItem.id
-    );
-    return { price, image, title, id, quantity: cartItem.quantity };
-  });
-  const cartTotal = cartProducts.reduce(
-    (total, product) => total + product.price * product.quantity,
-    0
-  );
+//   const cartProducts = cart.map((cartItem) => {
+//     const { price, image, title, id } = products.find(
+//       (p) => p.id === cartItem.id
+//     );
+//     return { price, image, title, id, quantity: cartItem.quantity };
+//   });
+//   const cartTotal = cartProducts.reduce(
+//     (total, product) => total + product.price * product.quantity,
+//     0
+//   );
   
   
-  function isInCart(product) {
-    return product != null && cart.find((p) => p.id === product.id) != null;
-  }
-  function addToCart(productId) {
-    setCart([...cart, { id: productId, quantity: 1 }]);
-  }
-  function removeFromCart(productId) {
-    setCart(cart.filter((product) => product.id !== productId));
-  }
-  function setProductQuantity(productId, quantity) {
-    setCart(
-      cart.map((product) =>
-        product.id === productId ? { ...product, quantity } : product
-      )
-    );
-  }
+//   function isInCart(product) {
+//     return product != null && cart.find((p) => p.id === product.id) != null;
+//   }
+//   function addToCart(productId) {
+//     setCart([...cart, { id: productId, quantity: 1 }]);
+//   }
+//   function removeFromCart(productId) {
+//     setCart(cart.filter((product) => product.id !== productId));
+//   }
+//   function setProductQuantity(productId, quantity) {
+//     setCart(
+//       cart.map((product) =>
+//         product.id === productId ? { ...product, quantity } : product
+//       )
+//     );
+//   }
 
   return (
     
@@ -131,11 +131,11 @@ function Home() {
             <ProductList
               products={products}
               categories={categories}
-              openProductModal={openProductModal}
+              //openProductModal={openProductModal}
             />
           )}
         </main>
-        <Modal 
+        {/* <Modal 
           isOpen={isCartOpen}
           close={() => setCartOpen(false)}>       
           
@@ -168,7 +168,7 @@ function Home() {
 
         </ModalBodySideBar>
           
-      </Modal>             
+      </Modal>              */}
        
       </div>
       
