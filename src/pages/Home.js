@@ -1,27 +1,23 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
+ 
+  
   Link
 } from "react-router-dom";
 
-import "./App.css";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import Loader from "./components/Loader";
-import ProductList from "./components/ProductList";
+
+
+import Hero from "./../components/Hero";
+import Loader from "./../components/Loader";
+import ProductList from "./../components/ProductList";
 // import ProductModal from "./components/ModalProduct";
-import ErrorBanner from "./components/ErrorBanner";
-import Modal from "./components/Modal";
-import { fetchProducts, fetchCatogories } from "./services/api";
-import Cart from "./components/Cart"
-import ModalBodySideBar from "./components/ModalBodySideBar"
-import ProductDetails from "./components/ProductDetails"
-import Home from "./pages/Home"
-import Page404 from "./pages/Page404"
-import Product from "./pages/Product"
+import ErrorBanner from "./../components/ErrorBanner";
+import Modal from "./../components/Modal";
+import { fetchProducts, fetchCatogories } from "./../services/api";
+import Cart from "./../components/Cart"
+import ModalBodySideBar from "./../components/ModalBodySideBar"
+import ProductDetails from "./../components/ProductDetails"
 
 const data = {
   title: "Edgemony Shop",
@@ -32,7 +28,7 @@ const data = {
     "https://images.pexels.com/photos/4123897/pexels-photo-4123897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
 };
 
-function App() {
+function Home() {
   // Modal logic
   const [productInModal, setProductInModal] = useState(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -62,29 +58,29 @@ function App() {
   }, [modalIsOpen, isCartOpen]);
 
   // API data logic
-  // const [products, setProducts] = useState([]);
-  // const [categories, setCategories] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [apiError, setApiError] = useState("");
-  // const [retry, setRetry] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
+  const [retry, setRetry] = useState(false);
 
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   setApiError("");
-  //   Promise.all([fetchProducts(), fetchCatogories()])
-  //     .then(([products, categories]) => {
-  //       setProducts(products);
-  //       setCategories(categories);
-  //     })
-  //     .catch((err) => setApiError(err.message))
-  //     .finally(() => setIsLoading(false));
-  // }, [retry]);
+  useEffect(() => {
+    setIsLoading(true);
+    setApiError("");
+    Promise.all([fetchProducts(), fetchCatogories()])
+      .then(([products, categories]) => {
+        setProducts(products);
+        setCategories(categories);
+      })
+      .catch((err) => setApiError(err.message))
+      .finally(() => setIsLoading(false));
+  }, [retry]);
 
-  //Cart Logic
+  // Cart Logic
   const [cart, setCart] = useState([]);
   
   const cartProducts = cart.map((cartItem) => {
-    const { price, image, title, id } = [].find(
+    const { price, image, title, id } = products.find(
       (p) => p.id === cartItem.id
     );
     return { price, image, title, id, quantity: cartItem.quantity };
@@ -113,18 +109,11 @@ function App() {
   }
 
   return (
-    <Router>
+    
 
-      <div className="App">
-        <Header
-          logo={data.logo}
-          title={data.title}
-          cartTotal={cartTotal}
-          cartSize={cart.length}
-          
-          onCartClick={() => setCartOpen(true)}
-        />
-        {/* <Hero
+      <div className="Home">
+        
+        <Hero
           title={data.title}
           description={data.description}
           cover={data.cover}
@@ -179,26 +168,14 @@ function App() {
 
         </ModalBodySideBar>
           
-      </Modal>              */}
+      </Modal>             
        
       </div>
-      <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/products/:productId">
-            <Product />
-          </Route>
-          <Route path="*">
-            <Page404 />
-          </Route>
-        </Switch>
       
-    </Router>
+      
+    
 
   );
 }
 
-export default App;
-
-
+export default Home;
