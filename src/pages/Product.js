@@ -4,7 +4,7 @@ import {useState,useEffect} from "react"
 import {useParams} from "react-router-dom"
 
 
-function Product() {
+function Product({inCart,addToCart,removeFromCart}) {
     const [product, setProduct] = useState (null)
     let {productId} = useParams()
     useEffect(()=> {
@@ -13,6 +13,14 @@ function Product() {
             setProduct (product)
         })
     },[productId])
+
+    const toggleCart = () => {
+      if (inCart(product)) {
+        removeFromCart(product.id);
+      } else {
+        addToCart(product);
+      }
+    }
     return (
         <div className="body">
        
@@ -21,9 +29,9 @@ function Product() {
             <img src={product.image} alt={product.title} />
             <h2>{product.title}</h2>
             <p>{product.description}</p>
-            {/* <button type="button" className="addToCart" onClick={toggleCart}>
-              {inCart ? "Remove to Cart -" : "Add to Cart +"}
-            </button> */}
+            <button type="button" className="addToCart" onClick={toggleCart}>
+              {inCart(product) ? "Remove to Cart -" : "Add to Cart +"}
+            </button>
             <br />
             <br />
             <hr />

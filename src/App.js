@@ -83,13 +83,13 @@ function App() {
   //Cart Logic
   const [cart, setCart] = useState([]);
   
-  const cartProducts = cart.map((cartItem) => {
-    const { price, image, title, id } = [].find(
-      (p) => p.id === cartItem.id
-    );
-    return { price, image, title, id, quantity: cartItem.quantity };
-  });
-  const cartTotal = cartProducts.reduce(
+  // const cartProducts = cart.map((cartItem) => {
+  //   const { price, image, title, id } = [].find(
+  //     (p) => p.id === cartItem.id
+  //   );
+  //   return { price, image, title, id, quantity: cartItem.quantity };
+  // });
+  const cartTotal = cart.reduce(
     (total, product) => total + product.price * product.quantity,
     0
   );
@@ -98,8 +98,8 @@ function App() {
   function isInCart(product) {
     return product != null && cart.find((p) => p.id === product.id) != null;
   }
-  function addToCart(productId) {
-    setCart([...cart, { id: productId, quantity: 1 }]);
+  function addToCart(product) {
+    setCart([...cart, { ...product, quantity: 1 }]);
   }
   function removeFromCart(productId) {
     setCart(cart.filter((product) => product.id !== productId));
@@ -187,7 +187,9 @@ function App() {
             <Home />
           </Route>
           <Route path="/products/:productId">
-            <Product />
+            <Product  inCart={isInCart}
+                      addToCart={addToCart}
+                      removeFromCart={removeFromCart}/>
           </Route>
           <Route path="*">
             <Page404 />
