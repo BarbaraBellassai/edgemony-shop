@@ -1,4 +1,4 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { PropTypes } from "prop-types";
 import Product from "./Product";
 import Search from "./Search";
@@ -13,6 +13,7 @@ function ProductList({ products, categories }) {
 
   const location = useLocation();
   const history = useHistory();
+  
 
   const searchParams = new URLSearchParams(location.search);
 

@@ -5,9 +5,10 @@
     background-color: white;
     padding: 5px 10px;
     font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   }
   .CategoryFilter.selected {
-    background-color: #45ecd2;
+    background-color: lightgrey;
   }
   .CategoryFilter.selected::after {
     content: "X";

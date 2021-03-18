@@ -1,8 +1,9 @@
 .search_input{
-    background-color: grey;
+    background-color:grey;
     padding: 10px;
     border-radius: 5px;
     width: 100%;
+    margin-bottom: 15px;
 }
 
 .search_input label{

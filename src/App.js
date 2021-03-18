@@ -22,6 +22,7 @@ import Header from "./components/Header";
 import Home from "./pages/Home"
 import Page404 from "./pages/Page404"
 import Product from "./pages/Product"
+import Cart from "./pages/Cart"
 
 const data = {
   title: "Edgemony Shop",
@@ -122,7 +123,7 @@ function App() {
           cartTotal={cartTotal}
           cartSize={cart.length}
           
-          onCartClick={() => setCartOpen(true)}
+          // onCartClick={() => setCartOpen(true)}
         />
         {/* <Hero
           title={data.title}
@@ -190,6 +191,12 @@ function App() {
             <Product  inCart={isInCart}
                       addToCart={addToCart}
                       removeFromCart={removeFromCart}/>
+          </Route>
+          <Route path="/cart">
+            <Cart products={cart}
+                  totalPrice={cartTotal}
+                  removeFromCart={removeFromCart}
+                  setProductQuantity={setProductQuantity}/>
           </Route>
           <Route path="*">
             <Page404 />
