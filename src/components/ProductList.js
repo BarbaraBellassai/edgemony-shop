@@ -13,7 +13,6 @@ function ProductList({ products, categories }) {
 
   const location = useLocation();
   const history = useHistory();
-  
 
   const searchParams = new URLSearchParams(location.search);
 

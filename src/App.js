@@ -3,9 +3,9 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route,  
 } from "react-router-dom";
+import {postItemToCart, deleteItemFromCart} from "./services/api"
 
 import "./App.css";
 import Header from "./components/Header";
@@ -24,6 +24,8 @@ import Page404 from "./pages/Page404"
 import Product from "./pages/Product"
 import Cart from "./pages/Cart"
 
+let cartId
+
 const data = {
   title: "Edgemony Shop",
   description: "A fake e-commerce with a lot of potential",
@@ -35,32 +37,32 @@ const data = {
 
 function App() {
   // Modal logic
-  const [productInModal, setProductInModal] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [isCartOpen, setCartOpen] = useState(false);
+  // const [productInModal, setProductInModal] = useState(null);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [isCartOpen, setCartOpen] = useState(false);
 
-  function openProductModal(product) {
-    console.log(product);
-    setProductInModal(product);
-    setModalIsOpen(true);
-  }
+  // function openProductModal(product) {
+  //   console.log(product);
+  //   setProductInModal(product);
+  //   setModalIsOpen(true);
+  // }
 
-  function closeModal() {
-    setModalIsOpen(false);
-    setTimeout(() => {
-      setProductInModal(null);
-    }, 500);
-  }
+  // function closeModal() {
+  //   setModalIsOpen(false);
+  //   setTimeout(() => {
+  //     setProductInModal(null);
+  //   }, 500);
+  // }
 
-  useEffect(() => {
-    if (modalIsOpen || isCartOpen) {
-      document.body.style.height = `100vh`;
-      document.body.style.overflow = `hidden`;
-    } else {
-      document.body.style.height = ``;
-      document.body.style.overflow = ``;
-    }
-  }, [modalIsOpen, isCartOpen]);
+  // useEffect(() => {
+  //   if (modalIsOpen || isCartOpen) {
+  //     document.body.style.height = `100vh`;
+  //     document.body.style.overflow = `hidden`;
+  //   } else {
+  //     document.body.style.height = ``;
+  //     document.body.style.overflow = ``;
+  //   }
+  // }, [modalIsOpen, isCartOpen]);
 
   // API data logic
   // const [products, setProducts] = useState([]);
@@ -99,19 +101,39 @@ function App() {
   function isInCart(product) {
     return product != null && cart.find((p) => p.id === product.id) != null;
   }
-  function addToCart(product) {
-    setCart([...cart, { ...product, quantity: 1 }]);
+  async function addToCart(product) {
+    try{
+      const cartObj = await postItemToCart(cartId, product.id, 1)
+      setCart(cartObj.items);
+    }catch (error){
+      console.error("postItemToCart API call error", error.message)
+    }
   }
-  function removeFromCart(productId) {
-    setCart(cart.filter((product) => product.id !== productId));
+  async function removeFromCart(productId) {
+    try{
+      const cartObj = await deleteItemFromCart(cartId, productId)
+      setCart(cartObj.items);
+    }catch (error){
+      console.error("deleteItemFromCart API call error", error.message)
+    }
   }
-  function setProductQuantity(productId, quantity) {
-    setCart(
-      cart.map((product) =>
-        product.id === productId ? { ...product, quantity } : product
-      )
-    );
+  async function setProductQuantity(productId, quantity) {
+    try{
+      const cartObj = await postItemToCart(cartId, productId,quantity)
+      setCart(cartObj.items);
+    }catch (error){
+      console.error("postItemToCart API call error", error.message)
+    }
   }
+  useEffect(() => {
+   const cartFromLocalStorage = localStorage.getItem('edgemony-cart')
+   try{
+     const cartObj = JSON.parse(cartFromLocalStorage)
+     setCart(cartObj.items)
+   } catch (error) {
+     console.error('Error while parsing localStorage item' + error.message)
+   }
+  }, [])
 
   return (
     <Router>

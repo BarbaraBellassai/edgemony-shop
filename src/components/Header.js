@@ -25,7 +25,7 @@ Header.propTypes = {
   cartTotal: PropTypes.number.isRequired,
   cartSize: PropTypes.number.isRequired,
  
-  onCartClick: PropTypes.func.isRequired,
+  //onCartClick: PropTypes.func.isRequired,
 };
 
 export default Header;
