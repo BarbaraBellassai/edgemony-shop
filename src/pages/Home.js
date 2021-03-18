@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 import React from "react";
-import {
- 
-  
-  Link
-} from "react-router-dom";
-
-
+import {Link} from "react-router-dom";
 
 import Hero from "./../components/Hero";
 import Loader from "./../components/Loader";
@@ -28,7 +22,7 @@ const data = {
     "https://images.pexels.com/photos/4123897/pexels-photo-4123897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
 };
 
-function Home() {
+function Home({isLoading, setIsLoading, apiError, setApiError, retry, setRetry}) {
   // Modal logic
 //   const [productInModal, setProductInModal] = useState(null);
 //   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -60,20 +54,20 @@ function Home() {
   // API data logic
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState("");
-  const [retry, setRetry] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [apiError, setApiError] = useState("");
+  // const [retry, setRetry] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    setApiError("");
+    // setIsLoading(true);
+    // setApiError("");
     Promise.all([fetchProducts(), fetchCatogories()])
       .then(([products, categories]) => {
         setProducts(products);
         setCategories(categories);
       })
-      .catch((err) => setApiError(err.message))
-      .finally(() => setIsLoading(false));
+      // .catch((err) => setApiError(err.message))
+      // .finally(() => setIsLoading(false));
   }, [retry]);
 
   // Cart Logic

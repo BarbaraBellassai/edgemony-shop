@@ -4,7 +4,7 @@ import "./Product.css";
 
 import {Link} from "react-router-dom";
 
-function Product({ product, openProductModal }) {
+function Product({ product }) {
   return (
     <article className="Product">
       <img src={product.image} alt={product.title} />
