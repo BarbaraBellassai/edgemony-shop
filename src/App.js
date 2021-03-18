@@ -10,10 +10,10 @@ import {postItemToCart, deleteItemFromCart} from "./services/api"
 import "./App.css";
 import Header from "./components/Header";
 // import Hero from "./components/Hero";
-// import Loader from "./components/Loader";
+import Loader from "./components/Loader";
 // import ProductList from "./components/ProductList";
 // // import ProductModal from "./components/ModalProduct";
-// import ErrorBanner from "./components/ErrorBanner";
+ import ErrorBanner from "./components/ErrorBanner";
 // import Modal from "./components/Modal";
 // import { fetchProducts, fetchCatogories } from "./services/api";
 // import Cart from "./components/Cart"
@@ -135,6 +135,11 @@ function App() {
    }
   }, [])
 
+  //Loader Logic & Error Banner Logic
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
+  const [retry, setRetry] = useState(false);
+
   return (
     <Router>
 
@@ -151,7 +156,7 @@ function App() {
           title={data.title}
           description={data.description}
           cover={data.cover}
-        />
+        /> */}
         <main>
           {isLoading ? (
             <Loader />
@@ -162,14 +167,38 @@ function App() {
               retry={() => setRetry(!retry)}
             />
           ) : (
-            <ProductList
-              products={products}
-              categories={categories}
-              openProductModal={openProductModal}
-            />
+            <Switch>
+          <Route exact path="/">
+            <Home isLoading = {isLoading} 
+                  setIsLoading = {setIsLoading}
+                  apiError = {apiError} 
+                  setApiError = {setApiError}
+                  retry = {retry} 
+                  setRetry = {setRetry}/>
+          </Route>
+          <Route path="/products/:productId">
+            <Product  inCart={isInCart}
+                      addToCart={addToCart}
+                      removeFromCart={removeFromCart}/>
+          </Route>
+          <Route path="/cart">
+            <Cart products={cart}
+                  totalPrice={cartTotal}
+                  removeFromCart={removeFromCart}
+                  setProductQuantity={setProductQuantity}/>
+          </Route>
+          <Route path="*">
+            <Page404 />
+          </Route>
+        </Switch>
+            // <ProductList
+            //   products={products}
+            //   categories={categories}
+            //   openProductModal={openProductModal}
+            // />
           )}
         </main>
-        <Modal 
+        {/* <Modal 
           isOpen={isCartOpen}
           close={() => setCartOpen(false)}>       
           
@@ -205,7 +234,7 @@ function App() {
       </Modal>              */}
        
       </div>
-      <Switch>
+      {/* <Switch>
           <Route exact path="/">
             <Home />
           </Route>
@@ -223,7 +252,7 @@ function App() {
           <Route path="*">
             <Page404 />
           </Route>
-        </Switch>
+        </Switch> */}
       
     </Router>
 
