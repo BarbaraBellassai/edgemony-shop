@@ -5,7 +5,7 @@ import {
   Switch,
   Route,  
 } from "react-router-dom";
-import {postItemToCart, deleteItemFromCart} from "./services/api"
+import {postItemToCart, deleteItemFromCart,fetchCart} from "./services/api"
 
 import "./App.css";
 import Header from "./components/Header";
@@ -101,9 +101,9 @@ function App() {
   function isInCart(product) {
     return product != null && cart.find((p) => p.id === product.id) != null;
   }
-  async function addToCart(product) {
+  async function addToCart(productId) {
     try{
-      const cartObj = await postItemToCart(cartId, product.id, 1)
+      const cartObj = await postItemToCart(cartId, productId, 1)
       setCart(cartObj.items);
     }catch (error){
       console.error("postItemToCart API call error", error.message)
@@ -126,13 +126,22 @@ function App() {
     }
   }
   useEffect(() => {
-   const cartFromLocalStorage = localStorage.getItem('edgemony-cart')
-   try{
-     const cartObj = JSON.parse(cartFromLocalStorage)
-     setCart(cartObj.items)
-   } catch (error) {
-     console.error('Error while parsing localStorage item' + error.message)
-   }
+   const cartIdFromLocalStorage = localStorage.getItem('edgemony-cart-id')
+   async function fetchCartUpdate() {
+     if (!cartIdFromLocalStorage){
+       return
+     }
+     else{
+       try{
+         const cartObj = await fetchCart(cartIdFromLocalStorage)
+         setCart(cartObj.items)
+         cartId=cartObj.id
+       } catch (error) {
+         console.error('Error while parsing localStorage item' + error.message)
+        }
+      }
+    }
+    fetchCartUpdate()
   }, [])
 
   //Loader Logic & Error Banner Logic

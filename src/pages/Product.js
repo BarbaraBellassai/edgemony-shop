@@ -18,7 +18,7 @@ function Product({inCart,addToCart,removeFromCart}) {
       if (inCart(product)) {
         removeFromCart(product.id);
       } else {
-        addToCart(product);
+        addToCart(product.id);
       }
     }
     return (
