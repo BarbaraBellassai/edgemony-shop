@@ -1,17 +1,23 @@
+import { PropTypes } from "prop-types";
 import React from 'react'
 import './Search.css'
 
-function SearchBar({searchInput,inputChange}) {
+function Search({onSearch,term}) {
     return (
         <div className="search_input">
             <label>Search a product</label>
             <input 
-            type="text" 
-            value={inputChange}
-            onChange={searchInput}></input>
+            type="search" 
+            value={term}
+            onChange={(event) => onSearch(event.target.value)}></input>
             
         </div>
     )
 }
 
-export default SearchBar
+Search.propTypes = {
+    term: PropTypes.string,
+    onSearch: PropTypes.func.isRequired,
+  };
+
+export default Search
