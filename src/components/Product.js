@@ -12,7 +12,7 @@ function Product({ product }) {
         <h1>{product.title}</h1>
         <p>Price: {product.price}€</p>
       </div>
-      <button ><Link to={`/products/${product.id}`}>View details</Link></button>
+      <button type="button" ><Link to={`/products/${product.id}`}>View details</Link></button>
     </article>
   );
 }

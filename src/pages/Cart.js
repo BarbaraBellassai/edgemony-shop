@@ -2,6 +2,8 @@ import "./../components/Cart.css";
 import { PropTypes } from "prop-types";
 import CartProduct from "./../components/CartProduct";
 import { formatPrice } from "../services/utils";
+import {Link} from "react-router-dom";
+import "./Cart.css"
 
 function Cart({
   products,
@@ -26,7 +28,10 @@ function Cart({
             <p className="Cart__content__empty">The cart is empty</p>
           )}
         </div>
-        <footer><span>Total: {formatPrice(totalPrice)}</span></footer>
+        <footer>
+          <span>Total: {formatPrice(totalPrice)}</span>
+          <Link to= {'/checkout'}><button type= "button">Go to checkout</button></Link>
+        </footer>
     </div>  
   );
 }
