@@ -23,6 +23,7 @@ import Home from "./pages/Home"
 import Page404 from "./pages/Page404"
 import Product from "./pages/Product"
 import Cart from "./pages/Cart"
+import Checkout from "./pages/Checkout"
 
 let cartId
 
@@ -195,6 +196,9 @@ function App() {
                   totalPrice={cartTotal}
                   removeFromCart={removeFromCart}
                   setProductQuantity={setProductQuantity}/>
+          </Route>
+          <Route path="/checkout">
+            <Checkout cartId={cartId} />
           </Route>
           <Route path="*">
             <Page404 />
