@@ -73,8 +73,8 @@
 import React from "react";
 import { useState } from "react";
 import "./Checkout.css"
-import { updateCart } from "./../services/api";
-function Checkout({cartId}) {
+import { updateCart,createNewOrder,createNewCart } from "./../services/api";
+function Checkout({cartId,newCart,setNewCart}) {
   const [dataInput, setDataInput] = useState({
     name: { value: "", modified: false },
     lastName: { value: "", modified: false },
@@ -101,6 +101,10 @@ function Checkout({cartId}) {
     console.log(data);
     try{
         await updateCart(cartId,data)
+        await createNewOrder(cartId)
+        const result = await createNewCart()
+        localStorage.setItem('edgemony-cart-id',JSON.stringify(result.id))
+        setNewCart(JSON.parse(localStorage.getItem('edgemony-cart-id')))
     }
     catch(error){
         console.error(error.message)
