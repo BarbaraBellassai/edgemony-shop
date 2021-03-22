@@ -86,7 +86,8 @@ function App() {
 
   //Cart Logic
   const [cart, setCart] = useState([]);
-  
+  const [newCart, setNewCart] = useState('')
+  const [retry, setRetry] = useState(false);
   // const cartProducts = cart.map((cartItem) => {
   //   const { price, image, title, id } = [].find(
   //     (p) => p.id === cartItem.id
@@ -143,12 +144,12 @@ function App() {
       }
     }
     fetchCartUpdate()
-  }, [])
+  }, [retry,newCart])
 
   //Loader Logic & Error Banner Logic
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState("");
-  const [retry, setRetry] = useState(false);
+ // const [retry, setRetry] = useState(false);
 
   return (
     <Router>
@@ -198,7 +199,9 @@ function App() {
                   setProductQuantity={setProductQuantity}/>
           </Route>
           <Route path="/checkout">
-            <Checkout cartId={cartId} />
+            <Checkout cartId={cartId}
+                      newCart={newCart}
+                      setNewCart = {setNewCart} />
           </Route>
           <Route path="*">
             <Page404 />

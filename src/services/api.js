@@ -36,3 +36,15 @@ export async function updateCart(cartId,billingData){
     body: JSON.stringify({billingData})
   })
 }
+export async function createNewOrder (cartId){
+  return callAPI('orders', {
+    method: 'POST',
+    body: JSON.stringify({cartId:cartId})
+  })
+}
+export async function createNewCart (){
+  return callAPI('carts',{
+    method: 'POST'
+    
+  })
+}
